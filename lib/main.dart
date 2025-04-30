@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
         '/onboarding': (context) => const LoadingScreen(),
         '/home': (context) => const HomeScreen(),
         // Add other routes here (e.g., '/login', '/settings')
+        
       },
       // Remove the default home property
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
