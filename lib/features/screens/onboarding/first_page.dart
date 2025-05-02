@@ -12,12 +12,12 @@ class FirstOnboardingPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Flexible(
-            flex: 4,
+            flex: 60,
             child: Image.asset('assets/images/L1.png', fit: BoxFit.contain),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 20),
           Flexible(
-            flex: 2,
+            flex: 12,
             child: Text(
               'مرحباً بك في سحر اليوم!',
               textAlign: TextAlign.center,
@@ -30,7 +30,7 @@ class FirstOnboardingPage extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           Flexible(
-            flex: 2,
+            flex: 10,
             child: Text(
               'احصل على جرعتك اليومية من الإيجابية.',
               textAlign: TextAlign.center,

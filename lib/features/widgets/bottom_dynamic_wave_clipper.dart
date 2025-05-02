@@ -12,16 +12,15 @@ class BottomDynamicWaveClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     final path = Path();
     // Start from top-left
-    path.lineTo(0, size.height * 0.20);
-    
+    path.lineTo(0, size.height * 0.001);
     // Create the wave curve using quadratic bezier
     path.quadraticBezierTo(
-      size.width / 2,    // Control point X (middle of width)
-      size.height * 0.0, // Control point Y (top of container)
+      size.width / 3,    // Control point X (middle of width)
+      size.height / 1.65, // Control point Y (top of container)
       size.width,        // End point X
-      size.height * 0.20 // End point Y (20% from top)
+      size.height * 0.4 // End point Y (20% from top)
     );
-    
+
     // Complete the path by drawing lines to bottom-right and bottom-left
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);

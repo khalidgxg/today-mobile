@@ -22,7 +22,7 @@ class NavigationControls extends StatelessWidget {
       borderRadius: BorderRadius.circular(8.0),
     );
     final nextButtonStyle = ElevatedButton.styleFrom(
-      foregroundColor: _primaryGreen,
+      foregroundColor: const Color(0xFF77A69D),
       backgroundColor: Colors.white,
       padding: const EdgeInsets.symmetric(horizontal: 45, vertical: 14),
       shape: buttonShape,

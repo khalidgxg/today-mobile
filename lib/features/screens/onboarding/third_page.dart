@@ -12,12 +12,12 @@ class ThirdOnboardingPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Flexible(
-            flex: 4,
+            flex: 80,
             child: Image.asset('assets/images/L3.png', fit: BoxFit.contain),
           ),
           const SizedBox(height: 30),
           Flexible(
-            flex: 2,
+            flex: 12,
             child: Text(
               'ابدأ رحلتك نحو التفاؤل.',
               textAlign: TextAlign.center,
@@ -30,7 +30,7 @@ class ThirdOnboardingPage extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           Flexible(
-            flex: 2,
+            flex: 12,
             child: Text(
               'سجل دخولك للاستكشاف.',
               textAlign: TextAlign.center,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'features/splash/presentation/screens/loading_screen.dart'; // Import LoadingScreen
-import 'features/home/presentation/screens/home_screen.dart';    // Import HomeScreen
+import 'features/screens/loading_screen.dart'; // Import LoadingScreen
+import 'features/screens/home_screen.dart'; // Re-import HomeScreen
+// Remove CategoryScreen import if no longer needed
+// import 'features/home/presentation/screens/category_screen.dart'; 
 
 Future<void> main() async {
   // Ensure Flutter bindings are initialized
@@ -25,18 +27,25 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'سحر اليوم', // Updated App Title
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF77A69D)), // Use primary green as seed
+        fontFamily: 'Cairo', // Apply default font globally
+        textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Cairo'),
         // Set text theme for Arabic font support if needed
         // textTheme: GoogleFonts.cairoTextTheme( // Example using google_fonts
         //   Theme.of(context).textTheme,
         // ),
         useMaterial3: true,
       ),
-      // Set initial route based on seenOnboarding status
+      // Change initial route back to /home
       initialRoute: seenOnboarding ? '/home' : '/onboarding',
       routes: {
         '/onboarding': (context) => const LoadingScreen(),
-        '/home': (context) => const HomeScreen(),
+        // Change route back to HomeScreen
+        '/home': (context) => const HomeScreen(), 
+        // Remove /categories route definition
+        // '/categories': (context) => const CategoryScreen(), 
+        // Keep /home route definition only if HomeScreen is still used for something else
+        // '/home': (context) => const HomeScreen(),
         // Add other routes here (e.g., '/login', '/settings')
         
       },

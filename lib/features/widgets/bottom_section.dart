@@ -3,9 +3,9 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'bottom_dynamic_wave_clipper.dart';
 import 'navigation_controls.dart';
 
-const Color _lightGreen = Color(0xFF81C784);
-const Color _primaryGreen = Color(0xFF4CAF50);
-const Color _indicatorColor = Color(0xFFF5D1AB);
+const Color _lightGreen = Color(0xFFAAC6BA);
+const Color _primaryGreen = Color(0xFF77A69D);
+const Color _indicatorColor = Color(0xFFF1BC90);
 
 class BottomSection extends StatelessWidget {
   final PageController pageController;
@@ -26,10 +26,10 @@ class BottomSection extends StatelessWidget {
     return ClipPath(
       clipper: BottomDynamicWaveClipper(),
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.35,
+        height: MediaQuery.of(context).size.height * 0.4,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [_lightGreen, _primaryGreen],
+            colors: [Color(0xFFAAC6BA), Color(0xFF77A69D)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),

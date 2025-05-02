@@ -12,12 +12,12 @@ class SecondOnboardingPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Flexible(
-            flex: 4,
+            flex: 80,
             child: Image.asset('assets/images/L2.png', fit: BoxFit.contain),
           ),
           const SizedBox(height: 30),
           Flexible(
-            flex: 2,
+            flex: 12,
             child: Text(
               'اكتشف الإلهام اليومي معنا.',
               textAlign: TextAlign.center,
@@ -30,7 +30,7 @@ class SecondOnboardingPage extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           Flexible(
-            flex: 2,
+            flex: 12,
             child: Text(
               'رسائل متنوعة لكل يوم.',
               textAlign: TextAlign.center,

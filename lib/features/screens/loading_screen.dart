@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../widgets/onboarding/bottom_section.dart';
+import '../widgets/bottom_section.dart';
 import 'onboarding/first_page.dart';
 import 'onboarding/second_page.dart';
 import 'onboarding/third_page.dart';
@@ -84,3 +84,4 @@ class _LoadingScreenState extends State<LoadingScreen> {
     );
   }
 } 
+
