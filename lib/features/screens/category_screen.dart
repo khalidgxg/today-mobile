@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../domain/entities/category.dart';
 import '../widgets/category_list_view.dart';
-import '../widgets/custom_app_bar.dart';
 
 /// Screen responsible for fetching and displaying the list of categories.
 class CategoryScreen extends StatefulWidget {
