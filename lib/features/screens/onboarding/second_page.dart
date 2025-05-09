@@ -15,7 +15,7 @@ class SecondOnboardingPage extends StatelessWidget {
             flex: 80,
             child: Image.asset('assets/images/L2.png', fit: BoxFit.contain),
           ),
-          const SizedBox(height: 30),
+          const SizedBox(height: 44),
           Flexible(
             flex: 12,
             child: Text(
@@ -28,7 +28,7 @@ class SecondOnboardingPage extends StatelessWidget {
                   ),
             ),
           ),
-          const SizedBox(height: 15),
+          const SizedBox(height: 25),
           Flexible(
             flex: 12,
             child: Text(

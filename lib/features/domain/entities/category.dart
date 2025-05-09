@@ -1,16 +1,23 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 /// Represents a category entity fetched from the backend.
 @immutable
 class Category {
   final String id;
   final String name;
+  final Color color;
+  final Color backgroundColor;
+  final String description;
   // Add imageUrl field
   final String? imageUrl;
 
   const Category({
     required this.id,
     required this.name,
+    required this.color,
+    required this.backgroundColor,
+    required this.description,
     this.imageUrl, // Make it optional in constructor
   });
 
@@ -49,4 +56,6 @@ class Category {
   String toString() {
     return 'Category{id: $id, name: $name, imageUrl: $imageUrl}'; // Include imageUrl in string representation
   }
+
+  
 } 
