@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../domain/entities/category.dart';
 import '../widgets/category_list_view.dart';
 import './category_show_screen.dart'; // Import CategoryShowScreen
+import '../data/services/api_service.dart';
 
 /// Screen responsible for fetching and displaying the list of categories.
 class CategoryScreen extends StatefulWidget {
@@ -17,6 +18,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
   bool _isLoading = true;
   String? _selectedCategoryId; // Add state for selected category ID
   String? _selectedCategoryName; // Add state for selected category name
+  Color? _selectedCategoryBackgroundColor; // Add state for selected category background color
+  final ApiService _apiService = ApiService();
+  String? _error;
+  Timer? _retryTimer;
 
   @override
   void initState() {
@@ -24,33 +29,56 @@ class _CategoryScreenState extends State<CategoryScreen> {
     _fetchCategories();
   }
 
-  Future<void> _fetchCategories() async {
-    // Simulate network delay
-    await Future.delayed(const Duration(seconds: 1));
-    
-    // Placeholder data (same as before)  
-    final sampleCategories = [
-      const Category(id: '1', name: 'تفاؤل وسعادة', imageUrl: 'https://via.placeholder.com/150/92c952',description:'جرعتك اليومية من الامل والسعادة' ,color:Color.fromARGB(253, 252, 253, 255),backgroundColor:  Color.fromARGB(255, 172, 137, 253) ),
-      const Category(id: '2', name: 'تحفيز ذاتي', imageUrl: 'https://via.placeholder.com/150/771796',description:'sfdsf' ,color:Color.fromARGB(255, 255, 255, 255),backgroundColor:  Color.fromARGB(255, 129, 253, 237) ),
-      const Category(id: '3', name: 'امتنان وشكر', imageUrl: 'https://via.placeholder.com/150/24f355',description:'sdfsdf' ,color:Color.fromARGB(255, 255, 255, 255) ,backgroundColor:   Color.fromARGB(255, 162, 255, 139)),
-      const Category(id: '4', name: 'هدوء وسكينة', imageUrl: 'https://via.placeholder.com/150/d32776',description:'sdfsdf' ,color:Color.fromARGB(255, 255, 255, 255) ,backgroundColor:   Color.fromARGB(255, 129, 82, 240)),
-      const Category(id: '5', name: 'نجاح وإنجاز', imageUrl: 'https://via.placeholder.com/150/f66b97',description:'dfsd' ,color:Color.fromARGB(255, 255, 255, 255) ,backgroundColor:   Color.fromARGB(255, 129, 82, 240)),
-      const Category(id: '6', name: 'صحة وعافية', imageUrl: 'https://via.placeholder.com/150/56a8c2',description:'sd' ,color:Color.fromARGB(255, 255, 255, 255) ,backgroundColor:   Color.fromARGB(255, 129, 82, 240)),
-    ];
+  @override
+  void dispose() {
+    _retryTimer?.cancel();
+    super.dispose();
+  }
 
-    if (mounted) {
+  Future<void> _fetchCategories() async {
+    if (!mounted) return;
+    
+    setState(() {
+      _isLoading = true;
+      _error = null;
+    });
+
+    try {
+      final categories = await _apiService.fetchCategories();
+      if (!mounted) return;
+      
       setState(() {
-        _categories = sampleCategories;
+        _categories = categories;
+        _isLoading = false;
+        _error = null;
+        _retryTimer?.cancel();
+        _retryTimer = null;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      
+      setState(() {
+        _error = e.toString();
         _isLoading = false;
       });
+
+      // Auto-retry after 5 seconds if it's a network error
+      if (e.toString().contains('Network error') && _retryTimer == null) {
+        _retryTimer = Timer(const Duration(seconds: 5), _fetchCategories);
+      }
     }
   }
 
   // Handler for when a category is tapped
   void _handleCategoryTap(String categoryId, String categoryName) {
+    final tappedCategory = _categories.firstWhere(
+      (category) => category.name == categoryName, // Assuming category.name is unique and matches the tapped name
+      orElse: () => _categories.first, // Provide a default or handle error appropriately
+    );
     setState(() {
       _selectedCategoryId = categoryId;
       _selectedCategoryName = categoryName;
+      _selectedCategoryBackgroundColor = tappedCategory.backgroundColor; // Store the background color
     });
   }
 
@@ -59,7 +87,43 @@ class _CategoryScreenState extends State<CategoryScreen> {
     setState(() {
       _selectedCategoryId = null;
       _selectedCategoryName = null;
+      _selectedCategoryBackgroundColor = null; // Clear the background color on back
     });
+  }
+
+  Widget _buildErrorWidget() {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.error_outline,
+              color: Colors.red,
+              size: 48,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              _error!.replaceAll('Exception: ', ''),
+              style: const TextStyle(color: Colors.red),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton.icon(
+              onPressed: _fetchCategories,
+              icon: const Icon(Icons.refresh),
+              label: const Text('Retry'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Theme.of(context).primaryColor,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -67,7 +131,20 @@ class _CategoryScreenState extends State<CategoryScreen> {
     const Color primaryGreen = Color(0xFF77A69D);
 
     if (_isLoading) {
-      return const Center(child: CircularProgressIndicator(color: primaryGreen));
+      return const Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularProgressIndicator(color: primaryGreen),
+            SizedBox(height: 16),
+            Text('Loading categories...'),
+          ],
+        ),
+      );
+    }
+
+    if (_error != null) {
+      return _buildErrorWidget();
     }
 
     if (_selectedCategoryId != null && _selectedCategoryName != null) {
@@ -76,6 +153,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         categoryId: _selectedCategoryId!,
         categoryName: _selectedCategoryName!,
         onGoBack: _handleGoBack,
+        backgroundColor: _selectedCategoryBackgroundColor, // Pass the background color
       );
     } else {
       // Show category list view
