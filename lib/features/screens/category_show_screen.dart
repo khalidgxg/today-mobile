@@ -8,13 +8,15 @@ class CategoryShowScreen extends StatefulWidget {
   final String categoryName;
   final VoidCallback onGoBack;
   final Color? backgroundColor; // Add backgroundColor property
+  final Color? textColor; // Add textColor property
 
   const CategoryShowScreen({
     Key? key,
     required this.categoryId,
     required this.categoryName,
     required this.onGoBack,
-    this.backgroundColor, // Add backgroundColor to the constructor
+    this.backgroundColor,
+    this.textColor, // Add textColor to the constructor
   }) : super(key: key);
 
   @override
@@ -94,6 +96,7 @@ class _CategoryShowScreenState extends State<CategoryShowScreen> {
             body: item.body,
             backgroundColor: widget
                 .backgroundColor, // Pass the background color to LetterCard
+            textColor: widget.textColor, // Pass the text color to LetterCard
           );
         },
       ),

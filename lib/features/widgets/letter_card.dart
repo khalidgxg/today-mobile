@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class LetterCard extends StatelessWidget {
   final String body;
   final Color? backgroundColor;
+  final Color? textColor;
 
   const LetterCard({
     Key? key,
     required this.body,
     this.backgroundColor,
+    this.textColor,
   }) : super(key: key);
 
   @override
@@ -27,8 +29,9 @@ class LetterCard extends StatelessWidget {
             const SizedBox(height: 8.0),
             Text(
               body,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 14.0,
+                color: textColor,
               ),
               textAlign: TextAlign.right,
             ),
@@ -52,16 +55,7 @@ class LetterCard extends StatelessWidget {
                   icon: const Icon(Icons.favorite_border),
                   onPressed: () {},
                 ),
-                IconButton( 
-                  icon: const Icon(Icons.chat_bubble_outline),
-                  onPressed: () {
-                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('قريبا'),
-                      ),
-                    );
-                  },
-                ),
+              
                 IconButton(
                   icon: const Icon(Icons.share_outlined),
                   onPressed: () {

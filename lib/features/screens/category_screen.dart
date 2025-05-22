@@ -19,6 +19,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   String? _selectedCategoryId; // Add state for selected category ID
   String? _selectedCategoryName; // Add state for selected category name
   Color? _selectedCategoryBackgroundColor; // Add state for selected category background color
+  Color? _selectedCategoryTextColor; // Add state for selected category text color
   final ApiService _apiService = ApiService();
   String? _error;
   Timer? _retryTimer;
@@ -72,14 +73,18 @@ class _CategoryScreenState extends State<CategoryScreen> {
   // Handler for when a category is tapped
   void _handleCategoryTap(String categoryId, String categoryName) {
     final tappedCategory = _categories.firstWhere(
-      (category) => category.name == categoryName, // Use category.id instead of category.name
-      orElse: () => _categories.first, // Provide a default or handle error appropriately
+      (category) => category.id == categoryId,
     );
-    setState(() {
-      _selectedCategoryId = categoryId;
-      _selectedCategoryName = categoryName;
-      _selectedCategoryBackgroundColor = tappedCategory.backgroundColor; // Store the background color
-    });
+
+    // Add a check to ensure tappedCategory is not null before accessing its properties
+    if (tappedCategory != null) { // This check is technically redundant with firstWhere without orElse, but good practice
+      setState(() {
+        _selectedCategoryId = categoryId;
+        _selectedCategoryName = categoryName;
+        _selectedCategoryBackgroundColor = tappedCategory.backgroundColor; // Store the background color
+        _selectedCategoryTextColor = tappedCategory.color; // Store the text color
+      });
+    }
   }
 
   // Handler for going back from detail view
@@ -88,6 +93,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
       _selectedCategoryId = null;
       _selectedCategoryName = null;
       _selectedCategoryBackgroundColor = null; // Clear the background color on back
+      _selectedCategoryTextColor = null; // Clear the text color on back
     });
   }
 
@@ -154,6 +160,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
         categoryName: _selectedCategoryName!,
         onGoBack: _handleGoBack,
         backgroundColor: _selectedCategoryBackgroundColor, // Pass the background color
+        textColor: _selectedCategoryTextColor, // Pass the text color
       );
     } else {
       // Show category list view

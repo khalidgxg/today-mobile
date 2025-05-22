@@ -31,9 +31,10 @@ class CategoryListView extends StatelessWidget {
           backgroundColor: category.backgroundColor,
           color: category.color,
           description: category.description,
-          onCardTap: onCategoryTap,
+          onCardTap: (categoryId, categoryName) {
+            onCategoryTap(category.id, category.name);
+          },
           imageUrl: category.categoryIcon.original,
-
         );
       },
     );
