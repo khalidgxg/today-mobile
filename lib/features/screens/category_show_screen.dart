@@ -42,7 +42,7 @@ class _CategoryShowScreenState extends State<CategoryShowScreen> {
 
     try {
       // Assuming ApiService has a method to fetch items by category ID
-      final items = await _apiService.fetchItemsByCategory(widget.categoryId);
+      final items = await _apiService.fetchLettersByCategory(widget.categoryId);
       if (!mounted) return;
       setState(() {
         _items = items;
@@ -91,12 +91,12 @@ class _CategoryShowScreenState extends State<CategoryShowScreen> {
           final item = _items[index];
           // Assuming your Letter entity has 'title' and 'body' properties
           return LetterCard(
-            title: item.title,
             body: item.body,
-            backgroundColor: widget.backgroundColor, // Pass the background color to LetterCard
+            backgroundColor: widget
+                .backgroundColor, // Pass the background color to LetterCard
           );
         },
       ),
     );
   }
-} 
+}

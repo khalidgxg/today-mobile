@@ -46,7 +46,7 @@ class ApiService {
   }
 
   // Placeholder method to fetch items by category ID
-  Future<List<Letter>> fetchItemsByCategory(String categoryId) async {
+  Future<List<Letter>> fetchLettersByCategory(String categoryId) async {
     // Simulate network delay
     await Future.delayed(const Duration(seconds: 1));
 

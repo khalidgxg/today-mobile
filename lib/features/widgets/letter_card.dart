@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 
 class LetterCard extends StatelessWidget {
-  final String title;
   final String body;
   final Color? backgroundColor;
 
   const LetterCard({
     Key? key,
-    required this.title,
     required this.body,
     this.backgroundColor,
   }) : super(key: key);
@@ -26,33 +24,6 @@ class LetterCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                  color: Colors.redAccent,
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                child: const Text(
-                  'جديد',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 8.0),
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.right,
-            ),
             const SizedBox(height: 8.0),
             Text(
               body,
@@ -81,7 +52,7 @@ class LetterCard extends StatelessWidget {
                   icon: const Icon(Icons.favorite_border),
                   onPressed: () {},
                 ),
-                IconButton(
+                IconButton( 
                   icon: const Icon(Icons.chat_bubble_outline),
                   onPressed: () {
                      ScaffoldMessenger.of(context).showSnackBar(

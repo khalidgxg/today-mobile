@@ -72,7 +72,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
   // Handler for when a category is tapped
   void _handleCategoryTap(String categoryId, String categoryName) {
     final tappedCategory = _categories.firstWhere(
-      (category) => category.name == categoryName, // Assuming category.name is unique and matches the tapped name
+      (category) => category.name == categoryName, // Use category.id instead of category.name
       orElse: () => _categories.first, // Provide a default or handle error appropriately
     );
     setState(() {
